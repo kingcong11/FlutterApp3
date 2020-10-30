@@ -5,14 +5,16 @@ import '../dummy-data/dummy_data.dart';
 import '../widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
+
+  static const routeName = '/category';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.menu,
-          size: 30,
-        ),
+        // leading: Icon(
+        //   Icons.menu,
+        //   size: 30,
+        // ),
         title: Text('HappyTummy!'),
         actions: [
           IconButton(
@@ -35,7 +37,7 @@ class CategoriesScreen extends StatelessWidget {
           crossAxisSpacing: 15,
         ),
         children: DUMMY_CATEGORIES.map((category) {
-          return CategoryItem(category.title, category.color);
+          return CategoryItem(category.id, category.title, category.color);
         }).toList(),
       ),
     );
