@@ -1,6 +1,8 @@
-import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+
+/* Screens */
+import './screens/categories_screen.dart';
 
 
 /* Widgets */
@@ -34,7 +36,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Gilroy',
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      // home: MyHomePage(),
+      home: CategoriesScreen(),
     );
   }
 }
