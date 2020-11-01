@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // color: Colors.blue[300],
               ),
               Container(
-                height: _availableContentSize * .65,
+                height: _availableContentSize * .55,
                 margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                 child: DefaultTabController(
                   length: 5,
@@ -135,11 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ),
       bottomNavigationBar: Stack(
         children: [
           BottomNavigationBar(
