@@ -11,13 +11,13 @@ class HomepageHeading extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           'Food',
           style: TextStyle(
             fontSize: 28,
           ),
         ),
-        Text(
+        const Text(
           'Special For You',
           style: TextStyle(
             fontSize: 28,
