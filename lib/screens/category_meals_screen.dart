@@ -26,10 +26,10 @@ class CategoryMealsScreen extends StatelessWidget {
   }
 
   // /* Getters */
-  // double _getRemainingContent(MediaQueryData _mediaQuery, AppBar appbar) {
-  //   return (_mediaQuery.size.height -
-  //       (appbar.preferredSize.height + _mediaQuery.padding.top));
-  // }
+  double _getRemainingContent(MediaQueryData _mediaQuery, AppBar appbar) {
+    return (_mediaQuery.size.height -
+        (appbar.preferredSize.height + _mediaQuery.padding.top));
+  }
 
   @override
   Widget build(BuildContext context) {
