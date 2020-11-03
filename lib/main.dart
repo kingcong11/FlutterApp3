@@ -2,10 +2,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 /* Screens */
-import 'screens/homepage_screen.dart';
+import './screens/navigation_screen.dart';
+import './screens/homepage_screen.dart';
 import './screens/categories_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/meal_details_screen.dart';
+import 'screens/favorites_screen.dart';
 
 
 void main() {
@@ -36,7 +38,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (ctx) => MyHomePage(),
+        '/': (ctx) => NavigationScreen(),
+        MyHomePage.routeName: (ctx) => MyHomePage(),
+        FavoritesScreen.routeName: (ctx) => FavoritesScreen(),
         CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         MealDetailsScreen.routeName: (ctx) => MealDetailsScreen(),
@@ -44,4 +48,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

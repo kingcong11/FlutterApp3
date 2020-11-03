@@ -9,26 +9,8 @@ class CategoriesScreen extends StatelessWidget {
   static const routeName = '/category';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // leading: Icon(
-        //   Icons.menu,
-        //   size: 30,
-        // ),
-        title: Text('HappyTummy!'),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              size: 26,
-            ),
-            onPressed: () {},
-          )
-        ],
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: GridView(
+    return SafeArea(
+      child: GridView(
         padding: const EdgeInsets.all(25),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
