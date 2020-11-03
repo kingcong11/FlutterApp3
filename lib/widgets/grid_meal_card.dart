@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+/* Screens */
+import '../screens/meal_details_screen.dart';
+
 class GridMealCard extends StatelessWidget {
+  final String id;
   final String title;
   final String description;
   final int calories;
@@ -8,12 +12,17 @@ class GridMealCard extends StatelessWidget {
   final String imageLocation;
 
   GridMealCard({
+    @required this.id,
     @required this.title,
     @required this.description,
     @required this.calories,
     @required this.price,
     @required this.imageLocation,
   });
+
+  void selectMeal(BuildContext ctx) {
+    Navigator.pushNamed(ctx, MealDetailsScreen.routeName, arguments: id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +52,7 @@ class GridMealCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${calories} Calories',
+                      '$calories Calories',
                       style:
                           TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                     ),
@@ -63,54 +72,61 @@ class GridMealCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: constraints.maxHeight * .55,
-                child: Image.network(
-                  imageLocation,
-                  fit: BoxFit.cover,
+              InkWell(
+                onTap: () => selectMeal(context),
+                child: Container(
+                  height: constraints.maxHeight * .55,
+                  child: Image.network(
+                    imageLocation,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Container(
-                height: constraints.maxHeight * .3,
-                padding: const EdgeInsets.all(0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      fit: FlexFit.loose,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text(
-                          '${title}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+              InkWell(
+                onTap: () => selectMeal(context),
+                child: Container(
+                  height: constraints.maxHeight * .3,
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        flex: 5,
+                        fit: FlexFit.loose,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
                           ),
-                          overflow: TextOverflow.fade,
                         ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 5,
-                      fit: FlexFit.loose,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          description,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
+                      Flexible(
+                        flex: 5,
+                        fit: FlexFit.loose,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            description,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black87,
+                            ),
+                            overflow: TextOverflow.fade,
                           ),
-                          overflow: TextOverflow.fade,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
