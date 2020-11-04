@@ -3,6 +3,12 @@ import 'package:lets_eat/screens/categories_screen.dart';
 import 'package:lets_eat/screens/favorites_screen.dart';
 import 'package:lets_eat/screens/homepage_screen.dart';
 
+/* Packages */
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
+enum _SelectedTab { home, catergories, favorites, search }
+
 class NavigationScreen extends StatefulWidget {
   @override
   _NavigationScreenState createState() => _NavigationScreenState();
@@ -10,12 +16,12 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   /* Properties */
-  var _selectedPageIndex = 0;
   final double _btmNavBarSize = 57;
+  var _selectedTab = _SelectedTab.home;
 
   /* Methods */
-  void _selectPageIndex(int index) {
-    setState(() => _selectedPageIndex = index);
+  void _selectTabIndex(int index) {
+    setState(() => _selectedTab = _SelectedTab.values[index]);
   }
 
   /* Builders */
@@ -32,7 +38,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
             Icons.search,
             size: 26,
           ),
-          onPressed: () {},
+          onPressed: () {
+            var test = _remainingAvailableContent;
+            print(test);
+          },
         )
       ],
       elevation: 0,
@@ -43,42 +52,42 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget _bottomNavBarBuilder() {
     return SizedBox(
       height: _btmNavBarSize,
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black45,
-              blurRadius: 2
-            )
-          ]
-        ),
-        child: BottomNavigationBar(
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.view_day),
-              label: 'Categories',
-            ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
-            ),
-          ],
-          currentIndex: _selectedPageIndex,
-          onTap: _selectPageIndex,
-          selectedItemColor: Theme.of(context).accentColor,
-          backgroundColor: Colors.grey[900],
-        ),
+      child: SalomonBottomBar(
+        items: [
+          SalomonBottomBarItem(
+            icon: Icon(FeatherIcons.home),
+            title: Text('Home'),
+            selectedColor: Colors.purple,
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(FeatherIcons.grid),
+            title: Text('Categories'),
+            selectedColor: Colors.blue,
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(FeatherIcons.heart),
+            title: Text('Favorite'),
+            selectedColor: Colors.pink,
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(FeatherIcons.search),
+            title: Text('Search'),
+            selectedColor: Colors.orange,
+          ),
+        ],
+        currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+        onTap: _selectTabIndex,
+
       ),
     );
   }
 
   /* Getters */
-  double _usedScaffoldContentSize(MediaQueryData _mediaQuery, AppBar appbar) {
-    return (_mediaQuery.size.height -(appbar.preferredSize.height + _mediaQuery.padding.top + _btmNavBarSize));
+  double _remainingAvailableContent(MediaQueryData _mediaQuery, AppBar appbar) {
+    return (_mediaQuery.size.height -
+        (appbar.preferredSize.height +
+            _mediaQuery.padding.top +
+            _btmNavBarSize));
   }
 
   @override
@@ -87,17 +96,27 @@ class _NavigationScreenState extends State<NavigationScreen> {
     final _appbar = _appbarBuilder();
     final _bottomNavBar = _bottomNavBarBuilder();
     final _availableContentSize =
-        _usedScaffoldContentSize(_mediaQuery, _appbar);
+        _remainingAvailableContent(_mediaQuery, _appbar);
 
     final List<Map<String, Object>> _pages = [
-      {'page': MyHomePage(availableContentSize: _availableContentSize), 'pageTitle': 'HappyTummy!'},
-      {'page': CategoriesScreen(), 'pageTitle': 'Categories'},
-      {'page': FavoritesScreen(availableContentSize: _availableContentSize),'pageTitle': 'Favorites'},
+      {
+        'page': MyHomePage(availableContentSize: _availableContentSize),
+        'pageTitle': 'HappyTummy!'
+      },
+      {
+        'page': CategoriesScreen(),
+        'pageTitle': 'Categories',
+      },
+      {
+        'page': FavoritesScreen(availableContentSize: _availableContentSize),
+        'pageTitle': 'Favorites'
+      },
+      {'page': null, 'pageTitle': 'Favorites'}
     ];
 
     return Scaffold(
       appBar: _appbar,
-      body: _pages[_selectedPageIndex]['page'],
+      body: _pages[_SelectedTab.values.indexOf(_selectedTab)]['page'],
       bottomNavigationBar: _bottomNavBar,
       backgroundColor: Colors.white,
     );

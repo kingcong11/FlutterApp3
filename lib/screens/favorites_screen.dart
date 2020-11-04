@@ -11,13 +11,15 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            color: Colors.grey,
-            width: double.infinity,
-            height: availableContentSize * 1,
-          ),
-        ]),
+        child: Column(
+          children: [
+            Container(
+              color: Colors.grey,
+              width: double.infinity,
+              height: availableContentSize * 1,
+            ),
+          ],
+        ),
       ),
     );
   }
