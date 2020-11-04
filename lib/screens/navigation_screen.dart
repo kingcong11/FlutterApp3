@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lets_eat/screens/categories_screen.dart';
 import 'package:lets_eat/screens/favorites_screen.dart';
 import 'package:lets_eat/screens/homepage_screen.dart';
+import 'package:lets_eat/widgets/main_drawer.dart';
 
 /* Packages */
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -27,10 +28,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   /* Builders */
   Widget _appbarBuilder() {
     return AppBar(
-      leading: Icon(
-        Icons.menu,
-        size: 30,
-      ),
       title: Text('HappyTummy!'),
       actions: [
         IconButton(
@@ -116,6 +113,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
     return Scaffold(
       appBar: _appbar,
+      drawer: MainDrawer(),
       body: _pages[_SelectedTab.values.indexOf(_selectedTab)]['page'],
       bottomNavigationBar: _bottomNavBar,
       backgroundColor: Colors.white,

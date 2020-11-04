@@ -21,7 +21,7 @@ class GridMealCard extends StatelessWidget {
   });
 
   void selectMeal(BuildContext ctx) {
-    Navigator.pushNamed(ctx, MealDetailsScreen.routeName, arguments: id);
+    Navigator.of(ctx).pushNamed(MealDetailsScreen.routeName, arguments: id);
   }
 
   @override
