@@ -12,7 +12,7 @@ class MealDetailsScreen extends StatelessWidget {
   /* Builder */
   Widget _appbarBuilder(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Color(0xFF626465),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -100,7 +100,13 @@ class MealDetailsScreen extends StatelessWidget {
                   ),
                   Container(
                     height: _availableContentSize * .42,
-                    decoration: BoxDecoration(color: Colors.grey[900]),
+                    // decoration: BoxDecoration(color: Colors.grey[900]),
+                    child: Image.asset(
+                      'assets/images/grayscale.jpg',
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      isAntiAlias: true,
+                    ),
                   ),
                   Positioned(
                     top: 10,
@@ -115,9 +121,9 @@ class MealDetailsScreen extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Container(
-                              child: GradientText(
+                              child: Text(
                                 mealDetails.title,
-                                gradient: myGradient,
+                                // gradient: myGradient,
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(.9),
                                   fontSize: 30,
@@ -131,7 +137,7 @@ class MealDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    right: 70,
+                    right: 35,
                     bottom: 1,
                     child: Container(
                       width: 200,

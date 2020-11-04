@@ -56,6 +56,8 @@ flutter:
     - assets/images/foods/1.png
     - assets/images/foods/2.png
     - assets/images/foods/3.png
+    - assets/images/cook.jpg
+    - assets/images/grayscale.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
