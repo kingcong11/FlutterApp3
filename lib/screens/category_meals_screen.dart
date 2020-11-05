@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/main_drawer.dart';
-import '../dummy-data/dummy_data.dart';
+
+/* Modelds */
+import '../models/meal.dart';
 
 /* Widgets */
 import '../widgets/grid_meal_card.dart';
@@ -8,7 +9,10 @@ import '../widgets/grid_meal_card.dart';
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
 
-  /* Builders */
+  final List<Meal> availableFilteredMeals;
+
+  CategoryMealsScreen(this.availableFilteredMeals);
+
   Widget _appbarBuilder(String categoryName) {
     return AppBar(
       title: Text(categoryName),
@@ -26,12 +30,6 @@ class CategoryMealsScreen extends StatelessWidget {
     );
   }
 
-  /* Getters */
-  // double _getRemainingContent(MediaQueryData _mediaQuery, AppBar appbar) {
-  //   return (_mediaQuery.size.height -
-  //       (appbar.preferredSize.height + _mediaQuery.padding.top));
-  // }
-
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
@@ -40,9 +38,8 @@ class CategoryMealsScreen extends StatelessWidget {
 
     final _mediaQuery = MediaQuery.of(context);
     final appbar = _appbarBuilder(categoryName);
-    // final _availableContentSize = _getRemainingContent(_mediaQuery, appbar);
 
-    final filteredMeals = DUMMY_MEALS.where((meal) {
+    final filteredMealsByCategory = availableFilteredMeals.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
 
@@ -50,7 +47,7 @@ class CategoryMealsScreen extends StatelessWidget {
       appBar: appbar,
       body: SafeArea(
         child: GridView.builder(
-          itemCount: filteredMeals.length,
+          itemCount: filteredMealsByCategory.length,
           padding: const EdgeInsets.all(15),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 300,
@@ -60,12 +57,12 @@ class CategoryMealsScreen extends StatelessWidget {
           itemBuilder: (_, index) {
             return Container(
               child: GridMealCard(
-                id: filteredMeals[index].id,
-                title: filteredMeals[index].title,
-                description: filteredMeals[index].description,
-                calories: filteredMeals[index].calories,
-                price: filteredMeals[index].price,
-                imageLocation: filteredMeals[index].imageLocation,
+                id: filteredMealsByCategory[index].id,
+                title: filteredMealsByCategory[index].title,
+                description: filteredMealsByCategory[index].description,
+                calories: filteredMealsByCategory[index].calories,
+                price: filteredMealsByCategory[index].price,
+                imageLocation: filteredMealsByCategory[index].imageLocation,
               ),
             );
           },

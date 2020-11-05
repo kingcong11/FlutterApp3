@@ -16,6 +16,7 @@ class Meal {
   final Complexity complexity;
   final String imageLocation;
   final bool isVegan;
+  final bool isVegetarian;
   final bool isGlutenFree;
   final bool isLactoseFree;
   final int calories;
@@ -32,6 +33,7 @@ class Meal {
     @required this.imageLocation,
     @required this.calories,
     @required this.price,
+    this.isVegetarian = false,
     this.isVegan = false,
     this.isGlutenFree = false,
     this.isLactoseFree = false,
