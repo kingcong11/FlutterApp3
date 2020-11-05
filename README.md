@@ -1,4 +1,4 @@
-# lets_eat
+# HappyTummy!
 
 A new Flutter project.
 
