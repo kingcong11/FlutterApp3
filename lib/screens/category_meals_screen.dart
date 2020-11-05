@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
-import '../widgets/main_drawer.dart';
 import '../dummy-data/dummy_data.dart';
+import '../models/meal.dart';
 
 /* Widgets */
 import '../widgets/grid_meal_card.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
+
+  @override
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+
+  String categoryName;
+  List<Meal> displayedMeals;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('initialization process');
+    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final categoryId = routeArgs['categoryId'];
+    categoryName = routeArgs['categoryName'];
+    displayedMeals = DUMMY_MEALS.where((meal) {
+      return meal.categories.contains(categoryId);
+    }).toList();
+  }
+
+  void _removeMeal(String mealId) {
+
+    print('delete process');
+    setState(() {
+      displayedMeals.removeWhere((meal) {
+        return meal.id == mealId;
+      });
+    });
+  }
 
   /* Builders */
   Widget _appbarBuilder(String categoryName) {
@@ -26,31 +57,17 @@ class CategoryMealsScreen extends StatelessWidget {
     );
   }
 
-  /* Getters */
-  // double _getRemainingContent(MediaQueryData _mediaQuery, AppBar appbar) {
-  //   return (_mediaQuery.size.height -
-  //       (appbar.preferredSize.height + _mediaQuery.padding.top));
-  // }
-
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final categoryId = routeArgs['categoryId'];
-    final categoryName = routeArgs['categoryName'];
 
-    final _mediaQuery = MediaQuery.of(context);
+    
     final appbar = _appbarBuilder(categoryName);
-    // final _availableContentSize = _getRemainingContent(_mediaQuery, appbar);
-
-    final filteredMeals = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
 
     return Scaffold(
       appBar: appbar,
       body: SafeArea(
         child: GridView.builder(
-          itemCount: filteredMeals.length,
+          itemCount: displayedMeals.length,
           padding: const EdgeInsets.all(15),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 300,
@@ -60,12 +77,13 @@ class CategoryMealsScreen extends StatelessWidget {
           itemBuilder: (_, index) {
             return Container(
               child: GridMealCard(
-                id: filteredMeals[index].id,
-                title: filteredMeals[index].title,
-                description: filteredMeals[index].description,
-                calories: filteredMeals[index].calories,
-                price: filteredMeals[index].price,
-                imageLocation: filteredMeals[index].imageLocation,
+                id: displayedMeals[index].id,
+                title: displayedMeals[index].title,
+                description: displayedMeals[index].description,
+                calories: displayedMeals[index].calories,
+                price: displayedMeals[index].price,
+                imageLocation: displayedMeals[index].imageLocation,
+                removeItemHandler: _removeMeal,
               ),
             );
           },

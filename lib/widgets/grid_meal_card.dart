@@ -10,6 +10,7 @@ class GridMealCard extends StatelessWidget {
   final int calories;
   final double price;
   final String imageLocation;
+  final Function removeItemHandler;
 
   GridMealCard({
     @required this.id,
@@ -18,10 +19,17 @@ class GridMealCard extends StatelessWidget {
     @required this.calories,
     @required this.price,
     @required this.imageLocation,
+    @required this.removeItemHandler,
   });
 
   void selectMeal(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(MealDetailsScreen.routeName, arguments: id);
+    Navigator.of(ctx)
+        .pushNamed(MealDetailsScreen.routeName, arguments: id)
+        .then((result) {
+          if(result != null){
+            removeItemHandler(result);
+          }
+        });
   }
 
   @override
