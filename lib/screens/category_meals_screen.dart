@@ -10,8 +10,10 @@ class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
 
   final List<Meal> availableFilteredMeals;
+  final Function toggleFavoriteCallbackHandler;
+  final Function isMealFavorite;
 
-  CategoryMealsScreen(this.availableFilteredMeals);
+  CategoryMealsScreen(this.availableFilteredMeals, this.toggleFavoriteCallbackHandler, this.isMealFavorite);
 
   Widget _appbarBuilder(String categoryName) {
     return AppBar(
@@ -32,7 +34,8 @@ class CategoryMealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryId = routeArgs['categoryId'];
     final categoryName = routeArgs['categoryName'];
 
@@ -50,10 +53,11 @@ class CategoryMealsScreen extends StatelessWidget {
           itemCount: filteredMealsByCategory.length,
           padding: const EdgeInsets.all(15),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 300,
-              childAspectRatio: 3 / 5,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10),
+            maxCrossAxisExtent: 300,
+            childAspectRatio: 3 / 5,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
           itemBuilder: (_, index) {
             return Container(
               child: GridMealCard(
@@ -63,6 +67,8 @@ class CategoryMealsScreen extends StatelessWidget {
                 calories: filteredMealsByCategory[index].calories,
                 price: filteredMealsByCategory[index].price,
                 imageLocation: filteredMealsByCategory[index].imageLocation,
+                toggleFavoriteCallbackHandler: toggleFavoriteCallbackHandler,
+                isMealFavorite: isMealFavorite,
               ),
             );
           },

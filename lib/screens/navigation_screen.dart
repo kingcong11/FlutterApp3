@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lets_eat/screens/categories_screen.dart';
-import 'package:lets_eat/screens/favorites_screen.dart';
-import 'package:lets_eat/screens/homepage_screen.dart';
-import 'package:lets_eat/widgets/main_drawer.dart';
+import './categories_screen.dart';
+import './favorites_screen.dart';
+import './homepage_screen.dart';
+import '../widgets/main_drawer.dart';
+
+/* Models */
+import '../models/meal.dart';
 
 /* Packages */
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -11,6 +14,12 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 enum _SelectedTab { home, catergories, favorites, search }
 
 class NavigationScreen extends StatefulWidget {
+
+  final List<Meal> favorites;
+  final Function toggleFavoriteCallbackHandler;
+  final Function isMealFavorite;
+
+  NavigationScreen(this.favorites, this.toggleFavoriteCallbackHandler, this.isMealFavorite);
   @override
   _NavigationScreenState createState() => _NavigationScreenState();
 }
@@ -92,8 +101,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     final _mediaQuery = MediaQuery.of(context);
     final _appbar = _appbarBuilder();
     final _bottomNavBar = _bottomNavBarBuilder();
-    final _availableContentSize =
-        _remainingAvailableContent(_mediaQuery, _appbar);
+    final _availableContentSize = _remainingAvailableContent(_mediaQuery, _appbar);
 
     final List<Map<String, Object>> _pages = [
       {
@@ -105,10 +113,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         'pageTitle': 'Categories',
       },
       {
-        'page': FavoritesScreen(availableContentSize: _availableContentSize),
+        'page': FavoritesScreen(availableContentSize: _availableContentSize, favorites: widget.favorites, toggleFavoriteCallbackHandler: widget.toggleFavoriteCallbackHandler, isMealFavorite: widget.isMealFavorite,),
         'pageTitle': 'Favorites'
       },
-      {'page': null, 'pageTitle': 'Favorites'}
+      {'page': null, 'pageTitle': 'Search'}
     ];
 
     return Scaffold(

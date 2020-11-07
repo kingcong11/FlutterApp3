@@ -10,6 +10,8 @@ class GridMealCard extends StatelessWidget {
   final int calories;
   final double price;
   final String imageLocation;
+  final Function toggleFavoriteCallbackHandler;
+  final Function isMealFavorite;
 
   GridMealCard({
     @required this.id,
@@ -18,6 +20,8 @@ class GridMealCard extends StatelessWidget {
     @required this.calories,
     @required this.price,
     @required this.imageLocation,
+    @required this.toggleFavoriteCallbackHandler,
+    @required this.isMealFavorite,
   });
 
   void selectMeal(BuildContext ctx) {
@@ -26,7 +30,7 @@ class GridMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (_, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
       return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         margin: const EdgeInsets.all(0),
@@ -57,16 +61,44 @@ class GridMealCard extends StatelessWidget {
                           TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                     ),
                     Spacer(),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 7, left: 7, right: 7),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 7, left: 7),
                       child: Align(
                         alignment: Alignment.topRight,
-                        child: Icon(
-                          Icons.favorite,
-                          color: Color(0xFFaaaaaa),
-                          size: 20,
-                        ),
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 20,
+                            ),
+                            color: isMealFavorite(id)
+                                ? Theme.of(context).accentColor
+                                : Color(0xFFaaaaaa),
+                            onPressed: () {
+                              toggleFavoriteCallbackHandler(id);
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Container(
+                                  height: 40,
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).accentColor,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    isMealFavorite(id)
+                                        ? 'Added to favorite meals.'
+                                        : 'Removed from favorite meals.',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ),
+                                backgroundColor: Colors.transparent,
+                                duration: Duration(milliseconds: 2300),
+                                elevation: 0,
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                              ));
+                            }),
                       ),
                     )
                   ],

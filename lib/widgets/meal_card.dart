@@ -103,16 +103,6 @@ class MealCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.all(5.0),
-                      //   child: Text(
-                      //     images[index]['name'],
-                      //     style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.bold,
-                      //         color: Colors.black87),
-                      //   ),
-                      // ),
                       Flexible(
                         flex: 5,
                         fit: FlexFit.loose,
@@ -129,19 +119,6 @@ class MealCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 7.0),
-                      //   child: Container(
-                      //     child: Text(
-                      //       images[index]['description'],
-                      //       style: TextStyle(
-                      //         fontSize: 15,
-                      //         fontWeight: FontWeight.w500,
-                      //         color: Colors.black87,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Flexible(
                         flex: 5,
                         fit: FlexFit.loose,
@@ -158,23 +135,6 @@ class MealCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Expanded(
-                      //   child: Container(
-                      //     child: Align(
-                      //       alignment: Alignment.bottomLeft,
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(7.0),
-                      //         child: Text(
-                      //           "\$ ${images[index]['price']}",
-                      //           style: TextStyle(
-                      //               fontSize: 20,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Colors.black87),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 )
