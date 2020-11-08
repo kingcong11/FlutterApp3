@@ -7,10 +7,15 @@ import '../widgets/bullet_list_item.dart';
 import '../dummy-data/dummy_data.dart';
 
 class MealDetailsScreen extends StatelessWidget {
+  /* Properties */
   static const routeName = '/meal-details';
+  final Function toggleFavoriteCallbackHandler;
+  final Function isMealFavorite;
+
+  MealDetailsScreen(this.toggleFavoriteCallbackHandler, this.isMealFavorite);
 
   /* Builder */
-  Widget _appbarBuilder(BuildContext context) {
+  Widget _appbarBuilder(BuildContext context, String mealId) {
     return AppBar(
       backgroundColor: Color(0xFF626465),
       actions: [
@@ -18,13 +23,40 @@ class MealDetailsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
             backgroundColor: Colors.grey[800].withOpacity(.4),
-            child: IconButton(
-              icon: Icon(
-                Icons.favorite,
-                size: 18,
-                color: Theme.of(context).accentColor,
+            child: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.favorite,
+                  size: 18,
+                  color: isMealFavorite(mealId)
+                      ? Theme.of(context).accentColor
+                      : Colors.white,
+                ),
+                onPressed: () {
+                  toggleFavoriteCallbackHandler(mealId);
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Container(
+                      height: 40,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        isMealFavorite(mealId) ? 'Added to favorite meals.': 'Removed from favorite meals.',
+                        style: TextStyle(
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    backgroundColor: Colors.transparent,
+                    duration: Duration(milliseconds: 2300),
+                    elevation: 0,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                  ));
+                },
               ),
-              onPressed: () {},
             ),
           ),
         )
@@ -74,11 +106,11 @@ class MealDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context);
-    final appbar = _appbarBuilder(context);
-    final _availableContentSize = _getRemainingContent(_mediaQuery, appbar);
     final mealId = ModalRoute.of(context).settings.arguments as String;
     final mealDetails = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
+    final _mediaQuery = MediaQuery.of(context);
+    final appbar = _appbarBuilder(context, mealId);
+    final _availableContentSize = _getRemainingContent(_mediaQuery, appbar);
 
     Gradient myGradient = LinearGradient(
       colors: [Color(0xffDA44bb), Color(0xff8921aa)],

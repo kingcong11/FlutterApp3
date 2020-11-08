@@ -15,7 +15,6 @@ import './screens/filters_screen.dart';
 /* Models */
 import './models/meal.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -27,7 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   /* Properties */
   Map<String, bool> _filters = {
     'vegan': false,
@@ -37,31 +35,48 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _myFavorites = [];
 
   /* Methods */
-
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
-
       _filters = filterData;
 
       _availableMeals = DUMMY_MEALS.where((meal) {
-        if (_filters['vegan']&& !meal.isVegan) {
+        if (_filters['vegan'] && !meal.isVegan) {
           return false;
         }
-        if (_filters['vegetarian']&& !meal.isVegetarian) {
+        if (_filters['vegetarian'] && !meal.isVegetarian) {
           return false;
         }
-        if (_filters['gluten']&& !meal.isGlutenFree) {
+        if (_filters['gluten'] && !meal.isGlutenFree) {
           return false;
         }
-        if (_filters['lactose']&& !meal.isLactoseFree) {
+        if (_filters['lactose'] && !meal.isLactoseFree) {
           return false;
         }
         return true;
       }).toList();
-
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    // indexWhere returns the index of the element if the condition is met, and return -1 if it doesn't found anything that satisfies the condition
+    final fetchedIndex = _myFavorites.indexWhere((meal) => meal.id == mealId);
+
+    if (fetchedIndex >= 0) {
+      setState(() {
+        _myFavorites.removeAt(fetchedIndex);
+      });
+    } else {
+      setState(() {
+        _myFavorites.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isMealFavorite(String mealId) {
+    return _myFavorites.any((meal) => meal.id == mealId);
   }
 
   @override
@@ -86,12 +101,11 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (ctx) => NavigationScreen(),
+        '/': (ctx) => NavigationScreen(_myFavorites, _toggleFavorite, _isMealFavorite),
         MyHomePage.routeName: (ctx) => MyHomePage(),
-        FavoritesScreen.routeName: (ctx) => FavoritesScreen(),
         CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
-        MealDetailsScreen.routeName: (ctx) => MealDetailsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals, _toggleFavorite, _isMealFavorite),
+        MealDetailsScreen.routeName: (ctx) => MealDetailsScreen(_toggleFavorite, _isMealFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters),
       },
     );

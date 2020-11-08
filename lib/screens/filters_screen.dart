@@ -16,33 +16,27 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   /* Properties */
-  var _vegan = false;
-  var _vegetarian = false;
-  var _glutenFree = false;
-  var _lactoseFree = false;
+  var _filters = {
+    'vegan': false,
+    'vegetarian': false,
+    'gluten': false,
+    'lactose': false,
+  };
 
   @override
   initState() {
-    _vegan =  widget._currentFilters['vegan'];
-    _vegetarian = widget._currentFilters['vegetarian'];
-    _glutenFree = widget._currentFilters['gluten'];
-    _lactoseFree = widget._currentFilters['lactose'];
+    _filters['vegan'] = widget._currentFilters['vegan'];
+    _filters['vegetarian'] = widget._currentFilters['vegetarian'];
+    _filters['gluten'] = widget._currentFilters['gluten'];
+    _filters['lactose'] = widget._currentFilters['lactose'];
+
     super.initState();
   }
 
   /* Builders */
   Widget _appbarBuilder() {
     return AppBar(
-      title: Text('HappyTumm!'),
-      actions: [
-        IconButton(
-          icon: Icon(
-            FeatherIcons.save,
-            size: 26,
-          ),
-          onPressed: () {},
-        )
-      ],
+      title: Text('HappyTummy!'),
       elevation: 0,
       centerTitle: true,
     );
@@ -112,59 +106,35 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         ),
                       ),
                       _switchListTileBuilder(
-                        _vegetarian,
+                        _filters['vegetarian'],
                         'Vegetarian',
                         (newValue) {
-                          setState(() => _vegetarian = newValue);
-                          final Map<String, bool> selectedFilter = {
-                            'vegan': _vegan,
-                            'vegetarian': _vegetarian,
-                            'gluten': _glutenFree,
-                            'lactose': _lactoseFree,
-                          };
-                          widget._saveFiltersCallbackHandler(selectedFilter);
+                          setState(() => _filters['vegetarian'] = newValue);
+                          widget._saveFiltersCallbackHandler(_filters);
                         },
                       ),
                       _switchListTileBuilder(
-                        _glutenFree,
+                        _filters['gluten'],
                         'Gluten-Free',
                         (newValue) {
-                          setState(() => _glutenFree = newValue);
-                          final Map<String, bool> selectedFilter = {
-                            'vegan': _vegan,
-                            'vegetarian': _vegetarian,
-                            'gluten': _glutenFree,
-                            'lactose': _lactoseFree,
-                          };
-                          widget._saveFiltersCallbackHandler(selectedFilter);
+                          setState(() => _filters['gluten'] = newValue);
+                          widget._saveFiltersCallbackHandler(_filters);
                         },
                       ),
                       _switchListTileBuilder(
-                        _lactoseFree,
+                        _filters['lactose'],
                         'Lactose-Free',
                         (newValue) {
-                          setState(() => _lactoseFree = newValue);
-                          final Map<String, bool> selectedFilter = {
-                            'vegan': _vegan,
-                            'vegetarian': _vegetarian,
-                            'gluten': _glutenFree,
-                            'lactose': _lactoseFree,
-                          };
-                          widget._saveFiltersCallbackHandler(selectedFilter);
+                          setState(() => _filters['lactose'] = newValue);
+                          widget._saveFiltersCallbackHandler(_filters);
                         },
                       ),
                       _switchListTileBuilder(
-                        _vegan,
+                        _filters['vegan'],
                         'Vegan',
                         (newValue) {
-                          setState(() => _vegan = newValue);
-                          final Map<String, bool> selectedFilter = {
-                            'vegan': _vegan,
-                            'vegetarian': _vegetarian,
-                            'gluten': _glutenFree,
-                            'lactose': _lactoseFree,
-                          };
-                          widget._saveFiltersCallbackHandler(selectedFilter);
+                          setState(() => _filters['vegan'] = newValue);
+                          widget._saveFiltersCallbackHandler(_filters);
                         },
                       ),
                     ],
