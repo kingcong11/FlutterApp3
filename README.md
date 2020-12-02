@@ -1,16 +1,20 @@
 # HappyTummy!
 
-A new Flutter project.
+A Meals App that where you can choose various meals together with its recipes and other userful informations
 
-## Getting Started
+* Routing
+* Navigations
+* Material Design
+* Data Filtering
+* Favorites Feature
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## App UI Design & Features
+
+![alt text](https://github.com/kingcong11/FlutterApp3/blob/master/samples/1.png?raw=true)
+![alt text](https://github.com/kingcong11/FlutterApp3/blob/master/samples/2.png?raw=true)
+![alt text](https://github.com/kingcong11/FlutterApp3/blob/master/samples/3.png?raw=true)
+![alt text](https://github.com/kingcong11/FlutterApp3/blob/master/samples/4.png?raw=true)
+
