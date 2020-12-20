@@ -4,6 +4,7 @@ A Meals App that where you can choose various meals together with its recipes an
 
 * Routing
 * Navigations
+* Providers
 * Material Design
 * Data Filtering
 * Favorites Feature
